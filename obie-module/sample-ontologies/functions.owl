@@ -1,0 +1,457 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns="http://iridl.ldeo.columbia.edu/ontologies/functions.owl#"
+  xml:base="http://iridl.ldeo.columbia.edu/ontologies/functions.owl">
+  <owl:Ontology rdf:about="">
+    <rdfs:comment xml:lang="en"
+    >Ontology for describing functions to be applied to variables and datasets</rdfs:comment>
+  </owl:Ontology>
+  <owl:Class rdf:ID="IndexTerm">
+    <rdfs:isDefinedBy rdf:resource=""/>
+  </owl:Class>
+  <owl:Class rdf:ID="Function">
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdfs:subClassOf rdf:resource="#IndexTerm"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Argument_Type">
+    <rdfs:isDefinedBy rdf:resource=""/>
+  </owl:Class>
+  <owl:Class rdf:ID="Argument">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+        >1</owl:cardinality>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:ID="arg_order"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:ID="arg_name"/>
+        </owl:onProperty>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+        >1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:minCardinality>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:ID="argument_type"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:isDefinedBy rdf:resource=""/>
+  </owl:Class>
+  <owl:Class rdf:ID="In_Out">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:oneOf rdf:parseType="Collection">
+          <In_Out rdf:ID="in">
+            <rdfs:label xml:lang="en">in</rdfs:label>
+            <rdfs:comment xml:lang="en">0</rdfs:comment>
+          </In_Out>
+          <In_Out rdf:ID="out">
+            <rdfs:label xml:lang="en">out</rdfs:label>
+            <rdfs:comment xml:lang="en">1</rdfs:comment>
+          </In_Out>
+        </owl:oneOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:isDefinedBy rdf:resource=""/>
+  </owl:Class>
+  <owl:Class rdf:ID="Ingrid_Procedure">
+    <rdfs:label xml:lang="en"
+    >Ingrid_Procedure</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdfs:subClassOf rdf:resource="#Function"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Keyword">
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdfs:subClassOf rdf:resource="#IndexTerm"/>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="describes">
+    <rdfs:range rdf:resource="#Function"/>
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="isDescribedBy"/>
+    </owl:inverseOf>
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdfs:domain rdf:resource="#Keyword"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#isDescribedBy">
+    <rdfs:range rdf:resource="#Keyword"/>
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdfs:domain rdf:resource="#Function"/>
+    <owl:inverseOf rdf:resource="#describes"/>
+    <rdfs:comment xml:lang="en"
+    >keyword</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:ID="func_desc">
+    <rdfs:domain rdf:resource="#Function"/>
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="syntax_ex">
+    <rdfs:domain rdf:resource="#Function"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:comment xml:lang="en"
+    >written example</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource=""/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="arg_desc">
+    <rdfs:domain rdf:resource="#Argument"/>
+    <rdfs:comment xml:lang="en"
+    >description of argument</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="#arg_name">
+    <rdfs:domain rdf:resource="#Argument"/>
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdfs:comment xml:lang="en"
+    >name of argument</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="optional">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdfs:domain rdf:resource="#Argument"/>
+    <rdfs:comment xml:lang="en"
+    >is the line of argument optional?</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="isArgumentOf">
+    <rdfs:domain rdf:resource="#Argument"/>
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="#Function"/>
+    <owl:inverseOf>
+      <owl:InverseFunctionalProperty rdf:ID="hasArgument"/>
+    </owl:inverseOf>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="in_out">
+    <rdfs:comment xml:lang="en"
+    >in=0, out=1</rdfs:comment>
+    <rdfs:domain rdf:resource="#Argument"/>
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="#In_Out"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="ingrid_code">
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdfs:label xml:lang="en"
+    >ingrid_code</rdfs:label>
+    <rdfs:domain rdf:resource="#Ingrid_Procedure"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="#argument_type">
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdfs:domain rdf:resource="#Argument"/>
+    <rdfs:range rdf:resource="#Argument_Type"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment xml:lang="en"
+    >arguments for ingrid functions</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="func_name">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="en"
+    >function name used by ingrid</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#Function"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="#arg_order">
+    <rdfs:comment xml:lang="en"
+    >order of arguments</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:domain rdf:resource="#Argument"/>
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:about="#hasArgument">
+    <rdfs:isDefinedBy rdf:resource=""/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="#isArgumentOf"/>
+    <rdfs:range rdf:resource="#Argument"/>
+    <rdfs:domain rdf:resource="#Function"/>
+  </owl:InverseFunctionalProperty>
+  <Keyword rdf:ID="percentiles">
+    <rdfs:label xml:lang="en">Percentiles</rdfs:label>
+    <rdfs:label xml:lang="es">Percentiles</rdfs:label>
+    <rdfs:label xml:lang="fr">Percentiles</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="singular_value_decomposition">
+    <rdfs:label xml:lang="en">singular value decomposition</rdfs:label>
+    <rdfs:label xml:lang="es">decomposición en valores singulares</rdfs:label>
+    <rdfs:label xml:lang="fr">décomposition en valeurs singulières</rdfs:label>
+  </Keyword>
+  <Argument_Type rdf:ID="number">
+    <rdfs:comment xml:lang="en">number</rdfs:comment>
+    <rdfs:label xml:lang="en">number</rdfs:label>
+  </Argument_Type>
+  <Argument_Type rdf:ID="grid">
+    <rdfs:label xml:lang="en">grid</rdfs:label>
+    <rdfs:comment xml:lang="en">independent variable</rdfs:comment>
+  </Argument_Type>
+  <Keyword rdf:ID="spearman_rank_correlation">
+    <rdfs:label xml:lang="en">Spearman Rank Correlation</rdfs:label>
+    <rdfs:label xml:lang="es">Correlación de Orden de Spearman</rdfs:label>
+    <rdfs:label xml:lang="fr">Corrélation de Rang de Spearman</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="smoothing_data">
+    <rdfs:label xml:lang="en">Smoothing Data</rdfs:label>
+    <rdfs:label xml:lang="es">Suavizamiento de Datos</rdfs:label>
+    <rdfs:label xml:lang="fr">Lissage de Données</rdfs:label>
+  </Keyword>
+  <Argument_Type rdf:ID="variable_or_proc">
+    <rdfs:comment xml:lang="en">dependent variable or a procedure</rdfs:comment>
+    <rdfs:label xml:lang="en">variable or proc</rdfs:label>
+  </Argument_Type>
+  <Argument_Type rdf:ID="numbers">
+    <rdfs:label xml:lang="en">numbers</rdfs:label>
+    <rdfs:comment xml:lang="en">set of one or more numbers</rdfs:comment>
+  </Argument_Type>
+  <Argument_Type rdf:ID="name">
+    <rdfs:comment xml:lang="en"
+    >name type argument -- most useful as flag options</rdfs:comment>
+    <rdfs:label xml:lang="en"
+    >name</rdfs:label>
+  </Argument_Type>
+  <Keyword rdf:ID="frequency_distribution">
+    <rdfs:label xml:lang="en">frequency distribution</rdfs:label>
+    <rdfs:label xml:lang="es">distribución de frecuencias</rdfs:label>
+    <rdfs:label xml:lang="fr">distribution</rdfs:label>
+  </Keyword>
+  <Argument_Type rdf:ID="delimiter">
+    <rdfs:label xml:lang="en">delimiter</rdfs:label>
+    <rdfs:comment xml:lang="en">delimits part of argument list (only first)</rdfs:comment>
+  </Argument_Type>
+  <Argument_Type rdf:ID="subdelimiter">
+    <rdfs:label xml:lang="en">subdelimiter</rdfs:label>
+    <rdfs:comment xml:lang="en">delimits part of argument list (repeatable)</rdfs:comment>
+  </Argument_Type>
+  <Argument_Type rdf:ID="named_integer">
+    <rdfs:label xml:lang="en"
+    >integer</rdfs:label>
+  </Argument_Type>
+  <Argument_Type rdf:ID="named_string">
+    <rdfs:label xml:lang="en"
+    >string</rdfs:label>
+  </Argument_Type>
+  <Keyword rdf:ID="pearson_product-moment_correlation">
+    <rdfs:label xml:lang="en">Pearson Product-Moment Correlation</rdfs:label>
+    <rdfs:label xml:lang="es">Coeficiencte de Correlación de Pearson</rdfs:label>
+    <rdfs:label xml:lang="fr">Coefficient de Corrélation de Pearson</rdfs:label>
+  </Keyword>
+  <Argument_Type rdf:ID="variable">
+    <rdfs:comment xml:lang="en">dependent variable</rdfs:comment>
+    <rdfs:label xml:lang="en">variable</rdfs:label>
+  </Argument_Type>
+  <Argument_Type rdf:ID="dataset">
+    <rdfs:comment xml:lang="en">collection of datasets and variables</rdfs:comment>
+    <rdfs:label xml:lang="en">dataset</rdfs:label>
+  </Argument_Type>
+  <Keyword rdf:ID="anomaly">
+    <rdfs:label xml:lang="en">anomaly</rdfs:label>
+    <rdfs:label xml:lang="es">anomalías</rdfs:label>
+    <rdfs:label xml:lang="fr">anomalies</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="cumulative_frequency_distribution">
+    <rdfs:label xml:lang="en">cumulative frequency distribution</rdfs:label>
+    <rdfs:label xml:lang="es">distribución acumulativa</rdfs:label>
+    <rdfs:label xml:lang="fr">fonction de répartition</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="binary_data_flags">
+    <rdfs:label xml:lang="en">Binary Data Flags</rdfs:label>
+    <rdfs:label xml:lang="es">Banderas Binarias de Datos</rdfs:label>
+    <rdfs:label xml:lang="fr">Drapeaux Binaires des Données</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="statistical_functions">
+    <rdfs:label xml:lang="en">Statistical Functions</rdfs:label>
+    <rdfs:label xml:lang="es">Funciones Estdísticas</rdfs:label>
+    <rdfs:label xml:lang="fr">Fonctions Statistiques</rdfs:label>
+  </Keyword>
+  <Argument_Type rdf:ID="name_and_number_set">
+    <rdfs:comment xml:lang="en">set of names and numbers</rdfs:comment>
+    <rdfs:label xml:lang="en">name and number set</rdfs:label>
+  </Argument_Type>
+  <Keyword rdf:ID="EOF">
+    <rdfs:label xml:lang="en">EOF (Emprical Orthogonal Function)</rdfs:label>
+    <rdfs:label xml:lang="es">EOF (Función Ortogonal Empírica)</rdfs:label>
+    <rdfs:label xml:lang="fr">EOF (Function Orthogonale Empirique)</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="ranking_data">
+    <rdfs:label xml:lang="en">Ranking Data</rdfs:label>
+    <rdfs:label xml:lang="es">Orden de Datos</rdfs:label>  
+    <rdfs:label xml:lang="fr">Rang de Données</rdfs:label>  
+  </Keyword>
+  <Keyword rdf:ID="rotated_eofs">
+    <rdfs:label xml:lang="en">rotated EOFS</rdfs:label>
+    <rdfs:label xml:lang="es">rotación de EOFS</rdfs:label>
+    <rdfs:label xml:lang="fr">rotation des EOFS</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="average">
+    <rdfs:label xml:lang="en">Average</rdfs:label>
+    <rdfs:label xml:lang="es">Promedio</rdfs:label>
+    <rdfs:label xml:lang="fr">Moyenne</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="grid_modification">
+    <rdfs:label xml:lang="en">Grid Modification</rdfs:label>
+    <rdfs:label xml:lang="es">Modificación de Retículas</rdfs:label>
+    <rdfs:label xml:lang="fr">Modification des Grilles</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="exponentials">
+    <rdfs:label xml:lang="en">Exponentials</rdfs:label>
+    <rdfs:label xml:lang="es">Exponenciales</rdfs:label>
+    <rdfs:label xml:lang="fr">Exponentielles</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="utility_functions">
+    <rdfs:label xml:lang="en">Utility Functions</rdfs:label>
+    <rdfs:label xml:lang="es">Funcciones Utilitarias</rdfs:label>
+    <rdfs:label xml:lang="fr">Fonctions Utilitaires</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="trigonometric_functions">
+    <rdfs:label xml:lang="en">Trigonometric Functions</rdfs:label>
+    <rdfs:label xml:lang="es">Funcciones Trigonométricas</rdfs:label>
+    <rdfs:label xml:lang="fr">Trigonometric Fonctions Trigonométriques</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="objective_analysis">
+    <rdfs:label xml:lang="en">Objective Analysis</rdfs:label>
+    <rdfs:label xml:lang="es">Análisis Objetivo</rdfs:label>
+    <rdfs:label xml:lang="fr">Analyse Objective</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="root_mean_square_anomaly">
+    <rdfs:label xml:lang="en">root mean square anomaly</rdfs:label>
+    <rdfs:label xml:lang="es">anomalía de media cuadrática</rdfs:label>
+    <rdfs:label xml:lang="fr">anomalie de la moyenne quadratique</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="modulus">
+    <rdfs:label xml:lang="en">modulus</rdfs:label>
+    <rdfs:label xml:lang="es">modulo</rdfs:label>
+    <rdfs:label xml:lang="fr">modulo</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="absolute_value">
+    <rdfs:label xml:lang="en">absolute value</rdfs:label>
+    <rdfs:label xml:lang="es">valor absoluto</rdfs:label>
+    <rdfs:label xml:lang="fr">valeur absolue</rdfs:label>
+  </Keyword>
+  <Argument_Type rdf:ID="named_real">
+    <rdfs:label xml:lang="en"
+    >real number</rdfs:label>
+  </Argument_Type>
+  <Argument_Type rdf:ID="grid_set">
+    <rdfs:comment xml:lang="en">set of one or more independent variables</rdfs:comment>
+    <rdfs:label xml:lang="en">grid set</rdfs:label>
+  </Argument_Type>
+  <Keyword rdf:ID="domain_selection">
+    <rdfs:label xml:lang="en">Domain Selection</rdfs:label>
+    <rdfs:label xml:lang="es">Selección de Dominio</rdfs:label>
+    <rdfs:label xml:lang="fr">Sélection de Domaine</rdfs:label>
+  </Keyword>
+  <Argument_Type rdf:ID="numberstring">
+    <rdfs:label xml:lang="en">number/string</rdfs:label>
+    <rdfs:comment xml:lang="en">number or string</rdfs:comment>
+  </Argument_Type>
+  <Keyword rdf:ID="vector_magnitude">
+    <rdfs:label xml:lang="en">Vector Magnitude</rdfs:label>
+    <rdfs:label xml:lang="es">Norma Vectorial</rdfs:label>
+    <rdfs:label xml:lang="fr">Norme de Vecteur</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="comparing_data">
+    <rdfs:label xml:lang="en">Comparing Data</rdfs:label>
+    <rdfs:label xml:lang="es">Comparisón de Datos</rdfs:label>
+    <rdfs:label xml:lang="fr">Comparaison de Données</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="constant_values">
+    <rdfs:label xml:lang="en">Constant Values</rdfs:label>
+    <rdfs:label xml:lang="es">Valores Constantes</rdfs:label>
+    <rdfs:label xml:lang="fr">Valeurs Constantes</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="root_mean_square">
+    <rdfs:label xml:lang="en">root mean square</rdfs:label>
+    <rdfs:label xml:lang="es">media cuadrática</rdfs:label>
+    <rdfs:label xml:lang="fr">moyenne quadratique</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="square_root">
+    <rdfs:label xml:lang="en">Square Root</rdfs:label>
+    <rdfs:label xml:lang="es">Raíz Cuadrada</rdfs:label>
+    <rdfs:label xml:lang="fr">Racine Carrée</rdfs:label>
+  </Keyword>
+  <Argument_Type rdf:ID="dataset_or_variable">
+    <rdfs:label xml:lang="en">dataset or variable</rdfs:label>
+    <rdfs:comment xml:lang="en">collection of datasets and variables or a variable</rdfs:comment>
+  </Argument_Type>
+  <Argument_Type rdf:ID="name_set">
+    <rdfs:comment xml:lang="en">set of one or more names</rdfs:comment>
+    <rdfs:label xml:lang="en">name set</rdfs:label>
+  </Argument_Type>
+  <Keyword rdf:ID="climatology">
+    <rdfs:label xml:lang="en">climatology</rdfs:label>
+    <rdfs:label xml:lang="es">climatología</rdfs:label>
+    <rdfs:label xml:lang="fr">climatologie</rdfs:label>
+  </Keyword>
+  <Argument_Type rdf:ID="proc">
+    <rdfs:label xml:lang="en">proc</rdfs:label>
+    <rdfs:comment xml:lang="en">procedure</rdfs:comment>
+  </Argument_Type>
+  <Keyword rdf:ID="independent_variable_creation">
+    <rdfs:label xml:lang="en">Independent Variable Creation</rdfs:label>
+    <rdfs:label xml:lang="es">Creación de Variables Independients</rdfs:label>
+    <rdfs:label xml:lang="fr">Création de Variables Indépendantes</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="masks">
+    <rdfs:label xml:lang="en">Masks</rdfs:label>
+    <rdfs:label xml:lang="es">Máscaras</rdfs:label>
+    <rdfs:label xml:lang="fr">Masques</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="scaling_data">
+    <rdfs:label xml:lang="en">Scaling Data</rdfs:label>
+    <rdfs:label xml:lang="es">Escalar Datos</rdfs:label>
+    <rdfs:label xml:lang="fr">Rééchelonnage des Données</rdfs:label>
+  </Keyword>
+  <Keyword rdf:ID="arithmetic_functions">
+    <rdfs:label xml:lang="en">Arithmetic Functions</rdfs:label>
+    <rdfs:label xml:lang="es">Funcciones Aritméticas</rdfs:label>
+    <rdfs:label xml:lang="fr">Fonctions Arithmétiques</rdfs:label>
+  </Keyword>
+  <Argument_Type rdf:ID="variable_or_constant">
+    <rdfs:label xml:lang="en">variable or constant</rdfs:label>
+    <rdfs:comment xml:lang="en">dependent variable or a constant</rdfs:comment>
+  </Argument_Type>
+  <Keyword rdf:ID="geometry_functions">
+    <rdfs:label xml:lang="en">Geometry Functions</rdfs:label>
+    <rdfs:label xml:lang="es">Funcciones para Geometrías</rdfs:label>
+    <rdfs:label xml:lang="fr">Fonctions sur Géométries</rdfs:label>
+  </Keyword>
+  <Argument_Type rdf:ID="string">
+    <rdfs:comment xml:lang="en"
+    >string</rdfs:comment>
+    <rdfs:label xml:lang="en"
+    >string</rdfs:label>
+  </Argument_Type>
+  <Keyword rdf:ID="independent_variable_modification">
+    <rdfs:label xml:lang="en">Independent Variable Modification</rdfs:label>
+    <rdfs:label xml:lang="es">Modificación de Variable Independiente</rdfs:label>
+    <rdfs:label xml:lang="fr">Modification de Variable Indépendante</rdfs:label> 
+ </Keyword>
+  <Keyword rdf:ID="missing_values">
+    <rdfs:label xml:lang="en">Missing Values</rdfs:label>
+    <rdfs:label xml:lang="es">Valores Faltantes</rdfs:label>
+    <rdfs:label xml:lang="fr">Valeurs Manquantes</rdfs:label>
+  </Keyword>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.4.2, Build 562)  http://protege.stanford.edu -->
